@@ -1,4 +1,7 @@
 #!/bin/bash
+
+# spelling bee - find the pangram
+
 if [[ $# -ne 1 || ${#1} -ne 7 ]]; then
 echo usage: $0 7letters
 exit
