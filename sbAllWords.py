@@ -11,7 +11,7 @@ class SBAllWords:
         self.letters = letters.lower()
         self.required = required.lower()
         self.minlength = minlength
-        self.matchword = re.compile(f"^[{letters}]+$")
+        self.matchword = re.compile(f"^[{self.letters}]+$")
 
     def __iter__(self):
         self.words = open(self.wordfile, newline='\n')
@@ -20,7 +20,8 @@ class SBAllWords:
     def __next__(self):
         for word in self.words:
             word=word.strip()
-            if self.matchword.match(word.lower()) and len(word) >= self.minlength and self.required in word:
+            wordLower = word.lower()
+            if self.matchword.match(wordLower) and len(word) >= self.minlength and self.required in wordLower:
                 return word
         self.words.close()
         raise StopIteration
