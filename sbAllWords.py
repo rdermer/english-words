@@ -21,7 +21,7 @@ class SBAllWords:
         for word in self.words:
             word=word.strip()
             wordLower = word.lower()
-            if self.matchword.match(wordLower) and len(word) >= self.minlength and self.required in wordLower:
+            if len(word) >= self.minlength and self.matchword.match(wordLower) and all(x in wordLower for x in self.required):
                 return word
         self.words.close()
         raise StopIteration
@@ -29,7 +29,7 @@ class SBAllWords:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-w',  "--words", action="store_true", dest="words", default=None,  help="word list")
-    parser.add_argument('letters', nargs=2, help='search string for pangrams')
+    parser.add_argument('letters', nargs=2, help='letters for pangrams followed by required letters')
     args=parser.parse_args()
 
     allwords = SBAllWords(args.words, args.letters[0], args.letters[1], 4)
